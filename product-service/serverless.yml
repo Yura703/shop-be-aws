@@ -26,8 +26,8 @@ provider:
   stage: dev
   region: eu-west-1
 
-# plugins:
-#   - serverless-webpack
+plugins:
+  - serverless-webpack
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
 #    role:
@@ -51,7 +51,8 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
+package:
+  individually: true
 #  patterns:
 #    - '!exclude-me.js'
 #    - '!exclude-me-dir/**'
@@ -60,7 +61,7 @@ provider:
 
 functions:
   getProductByID:
-    handler: functions/getProductByID.handler
+    handler: functions/getProductByID/getProductByID.handler
     events:
       - http:
           path: products/{productId}
@@ -68,7 +69,7 @@ functions:
           cors: true
 
   getAllProducts:
-    handler: functions/getAllProducts.handler
+    handler: functions/getAllProducts/getAllProducts.handler
     events:
       - http:
           path: products
