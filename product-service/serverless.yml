@@ -22,10 +22,12 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   stage: dev
   region: eu-west-1
 
+# plugins:
+#   - serverless-webpack
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
 #    role:
@@ -57,8 +59,22 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  getProductByID:
+    handler: functions/getProductByID.handler
+    events:
+      - http:
+          path: products/{productId}
+          method: get
+          cors: true
+
+  getAllProducts:
+    handler: functions/getAllProducts.handler
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true        
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
