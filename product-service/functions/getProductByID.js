@@ -1,7 +1,7 @@
 import products from './productList.json';
 
-const handlerGetByID = (products = {}, status = 200) => { 
-  return {
+const handlerGetByID = (products = {}, status = 200) => ( 
+  {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Methods': '*',
@@ -10,7 +10,7 @@ const handlerGetByID = (products = {}, status = 200) => {
     statusCode: status,
     body: JSON.stringify(products),
   }
-};
+);
 
 export const handler = async (event) => {
   const { productId } = event.pathParameters || null;
