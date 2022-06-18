@@ -12,6 +12,7 @@ provider:
 plugins:
   - serverless-auto-swagger
   - serverless-webpack
+  - serverless-jest-plugin  
 
 package:
   individually: true
@@ -22,6 +23,7 @@ custom:
     webpack includeModules:  false  # Конфигурация модулей узла для упаковки 
     packager:  'npm'  # Packager, который будет использоваться для упаковки ваших внешних модулей 
     excludeFiles:  src/** /*.test.js  # Предоставить glob для игнорируемых файлов  
+  jest:  
 
 functions:
   getProductByID:

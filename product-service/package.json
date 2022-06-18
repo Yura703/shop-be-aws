@@ -1,10 +1,11 @@
 {
   "name": "product-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "node --experimental-modules --experimental-vm-modules node_modules/jest/bin/jest.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dep": "serverless deploy",    
+		"test": "node --experimental-modules --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
-    "jest": "^28.1.1"
-  }
+    "jest": "^28.1.1",
+    "serverless-jest-plugin": "^0.4.0"
+  },
+  "type": "module"
 }
