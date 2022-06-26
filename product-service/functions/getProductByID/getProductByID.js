@@ -31,7 +31,7 @@ export const handler = async event => {
   await client.connect();
 
   try {
-    const { rows: product } = await client.query(`select * from products where products.id='${productId}'`);
+    const { rows: product } = await client.query(`select * from products where id='${productId}'`);
     return await handlerGetByID(product, 200);
 
   } catch (error) {
