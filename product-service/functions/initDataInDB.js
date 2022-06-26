@@ -30,8 +30,8 @@ export const handler = async event => {
 
     const createStocks = await client.query(
       `create table if not exist stocks (
-        product_id uuid,        
-        count integer
+        count integer,
+        foreign key ('product_id') references "products" ("id")
       )`
     );
 
@@ -52,14 +52,14 @@ export const handler = async event => {
 
     const insertStocks = await client.query(
       `insert into stocks (product_id, count) values
-      (allProducts[0].id, 5),
-      (allProducts[1].id, 1),
-      (allProducts[2].id, 10), 
-      (allProducts[3].id, 1),
-      (allProducts[4].id, 1),
-      (allProducts[5].id, 1),
-      (allProducts[6].id, 1),
-      (allProducts[7].id, 1);
+      (${allProducts[0].id}, 5),
+      (${allProducts[1].id}, 1),
+      (${allProducts[2].id}, 10), 
+      (${allProducts[3].id}, 1),
+      (${allProducts[4].id}, 1),
+      (${allProducts[5].id}, 1),
+      (${allProducts[6].id}, 1),
+      (${allProducts[7].id}, 1);
     `);
 
   } catch (error) {
