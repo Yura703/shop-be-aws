@@ -2,6 +2,7 @@ org: yura703
 app: product-service
 service: product-service
 frameworkVersion: '3'
+useDotenv: true
 
 provider:
   name: aws
@@ -9,10 +10,18 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    PG_HOST: shop-instance.cq7elyimyrte.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: shop
+    PG_USERNAME: postgres
+    PG_PASSWORD: lYxD9HbWBJTvZGuLIM5u  
+
 plugins:
   - serverless-auto-swagger
   - serverless-webpack
   - serverless-jest-plugin  
+  - serverless-dotenv-plugin
 
 package:
   individually: true
@@ -50,9 +59,4 @@ functions:
           method: post
           cors: true             
 
-environment:
-  PG_HOST: shop-instance.cq7elyimyrte.eu-west-1.rds.amazonaws.com
-  PG_PORT: 5432
-  PG_DATABASE: shop
-  PG_USERNAME: postgres
-  PG_PASSWORD: lYxD9HbWBJTvZGuLIM5u  
+
