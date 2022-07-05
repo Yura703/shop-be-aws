@@ -12,20 +12,17 @@ provider:
   runtime: nodejs14.x
   stage: dev
   region: eu-west-1 
-  s3:
-    bucketOne:
-      name: ${self:custom.bucket}
-      corsConfiguration:
-          CorsRules:
-            - AllowedMethods:
-                - GET
-                - PUT
-                - DELETE
-              AllowedOrigins:
-                - '*'
-              AllowedHeaders:
-                - '*' 
-
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: "s3:ListBucket"
+      Resource:
+        - "arn:aws:s3:::yura703-task5"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::yura703-task5/*"
+          
 plugins:
   - serverless-auto-swagger
   - serverless-webpack
@@ -58,9 +55,13 @@ functions:
   importFileParser:
     handler: functions/importFileParser.handler
     events:
-      - s3: bucketOne
+      - s3: 
+        bucket: yura703-task5
         event: s3:ObjectCreated:*
         rules:
           - prefix: uploaded/
-          - suffix: .csv          
+          - suffix: .csv 
+        existing: true         
+  
+  
   
