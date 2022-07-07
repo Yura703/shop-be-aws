@@ -34,6 +34,9 @@ custom:
     excludeFiles:  src/** /*.test.js  # Предоставить glob для игнорируемых файлов  
   jest:  
 
+#catalogItemsQueue  
+#createProductTopic
+
 functions:
   getProductByID:
     handler: functions/getProductByID/getProductByID.handler
@@ -51,12 +54,13 @@ functions:
           method: get
           cors: true  
 
-  createProduct:
-    handler: functions/initDataInDB.handler
-    events:
-      - http:
-          path: products
-          method: post
-          cors: true             
+  # createProduct:
+  #   handler: functions/initDataInDB.handler
+  #   events:
+  #     - http:
+  #         path: products
+  #         method: post
+  #         cors: true             
 
+  catalogBatchProcess:
 
