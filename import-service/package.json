@@ -28,5 +28,9 @@
     "jest": "^28.1.2",
     "serverless-jest-plugin": "^0.4.0"
   },
+<<<<<<< HEAD
   "type": "module"
+=======
+  "type":"module"
+>>>>>>> 76a737a (fix: importFileParser.js)
 }

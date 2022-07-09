@@ -24,7 +24,7 @@ describe('importProductsFile', () => {
     await s3Client.deleteObject({ Bucket: BUCKET, Key: `uploaded/${name}` }).promise();
   });
 
-  it('Get signed URL and upload file without name', async () => {
+  it('Get signed URL and upload file without name', async() => {
     const response = await handler.importProducts({ queryStringParameters: {} });
     const { error } = JSON.parse(response.body);
 
