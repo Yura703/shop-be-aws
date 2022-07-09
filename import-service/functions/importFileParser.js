@@ -4,7 +4,7 @@ import parser from "csv-parser";
 const results = [];
 const BUCKET = "";
 
-export const importFileParser = async event => {
+export const importFileParser = async (event) => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
 
   for (const record of event.Records) {
@@ -20,16 +20,16 @@ export const importFileParser = async event => {
         results.push(item)
       }).on("end", async () => {
         console.log(JSON.stringify(results));
-    	});
-      
-      await s3.copyObject({ 
+
+        await s3.copyObject({ 
           Bucket: BUCKET, Key: key.replace("uploaded", "parsed"),
           CopySource: BUCKET + "/" + key
         }).promise();
 
-      await s3.deleteObject({ Bucket: BUCKET, Key: key }).promise();
+        await s3.deleteObject({ Bucket: BUCKET, Key: key }).promise();
 
-      resolve(`OK`);
+        resolve(`OK`);
+    	});   
     });
   }
 
