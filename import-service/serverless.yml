@@ -5,7 +5,7 @@ frameworkVersion: '3'
 useDotenv: true
 
 custom:
-  bucket: yura703-task5
+  bucketName: yura703-task5
   jest:
 
 provider:
@@ -13,16 +13,19 @@ provider:
   runtime: nodejs14.x
   stage: dev
   region: eu-west-1 
+  lambdaHashingVersion: 20201221
+
   iamRoleStatements:
     - Effect: "Allow"
-      Action: "s3:ListBucket"
+      Action:
+        - "s3:ListBucket"
       Resource:
-        - "arn:aws:s3:::yura703-task5"
+        - arn:aws:s3:::yura703-task5
     - Effect: "Allow"
       Action:
         - "s3:*"
       Resource:
-        - "arn:aws:s3:::yura703-task5/*"
+        - arn:aws:s3:::yura703-task5/*
 
 plugins:
   - serverless-jest-plugin  
@@ -51,7 +54,6 @@ functions:
         event: s3:ObjectCreated:*
         rules:
           - prefix: uploaded/
-          - suffix: .csv 
         existing: true         
   
   
