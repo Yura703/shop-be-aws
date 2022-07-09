@@ -62,5 +62,12 @@ functions:
   #         method: post
   #         cors: true             
 
-  catalogBatchProcess:
+  # catalogBatchProcess:
+  #   usersSubmit:
+  #     handler: functions/catalogBatchProcess/catalogBatchProcess.catalogBatchProcess
+  #     events:
+  #       - http:
+  #           path: products
+  #           method: post
+  #           cors: true  
 

@@ -24,11 +24,41 @@ provider:
       Resource:
         - "arn:aws:s3:::yura703-task5/*"
 
+  environment:
+    SQL_URL:
+      Ref: SQSQueue
+
 plugins:
   - serverless-jest-plugin  
 
 package:
   individually: true
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: import-service-queue
+    # SNSTopic:
+    #   Type: AWS::SNS::Topic
+    #   Properties:
+    #     TopicName: createProductTopic
+    # SNSSsubscription:
+    #   Type: AWS::SNS::Subscription
+    #   Properties:
+    #     Endpoint: tiwbwit@gmail.com
+    #     Protocol: email
+    #     TopicArn:
+    #       Ref: SNSTopic
+
+  Outputs:
+    SQSQueueArn:
+      Value:
+        Fn::GetAtt: [SQSQueue, Arn]
+    SQSQueue:
+      Value:
+        Ref: SQSQueue  
 
 functions:
   importProductsFile:
@@ -52,7 +82,17 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv 
-        existing: true         
+        existing: true      
+
+  catalogBatchProcess:
+    handler: functions/catalogBatchProcess.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 2
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn         
   
   
   

@@ -1,11 +1,13 @@
 import AWS from "aws-sdk";
 import parser from "csv-parser";
 
+
 const results = [];
 const BUCKET = "";
 
 export const importFileParser = async event => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
+  const sqs = new AWS.SQS();
 
   for (const record of event.Records) {
     const key = record.s3.object.key;
@@ -17,7 +19,24 @@ export const importFileParser = async event => {
       s3.getObject(params).createReadStream()
       .pipe(parser(["title", "description", "price", "count"]))
       .on("data", (item) => {
-        results.push(item)
+        sqs.sendMessage(
+          {
+            QueueUrl: process.env.SQS_URL,
+            MessageBody: JSON.stringify(item),
+          }, () => {
+            console.log('Send message - ' + item);
+          }
+        );
+
+        callback(null, {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+        });
+
+        //results.push(item)
       }).on("end", async () => {
         console.log(JSON.stringify(results));
     	});
