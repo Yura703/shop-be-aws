@@ -9,7 +9,11 @@ export const importFileParser = async (event) => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
   const sqs = new AWS.SQS();
 
-  for (const record of event.Records) {
+  if (!event.Records) {
+    return { statusCode: 404 }
+  }
+
+  for (let record of event.Records) {
     const key = record.s3.object.key;
     BUCKET = record.s3.bucket.name;
 
