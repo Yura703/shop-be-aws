@@ -17,8 +17,7 @@ provider:
 
   iamRoleStatements:
     - Effect: "Allow"
-      Action:
-        - "s3:ListBucket"
+      Action: 's3:PutObject'
       Resource:
         - arn:aws:s3:::yura703-task5
     - Effect: "Allow"
@@ -26,10 +25,20 @@ provider:
         - "s3:*"
       Resource:
         - arn:aws:s3:::yura703-task5/*
+    - Effect: 'Allow'
+      Action: 'sqs:*'
+      Resource:
+        - Fn::GetAtt: [SQSQueue, Arn]
+    - Effect: 'Allow'
+      Action: 'sns:*'
+      Resource:
+        Ref: SNSTopic    
 
   environment:
     SQL_URL:
       Ref: SQSQueue
+    SNS_ARN:
+      Ref: SNSTopic
 
 plugins:
   - serverless-jest-plugin  
@@ -42,33 +51,25 @@ resources:
     SQSQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: import-service-queue
-    # SNSTopic:
-    #   Type: AWS::SNS::Topic
-    #   Properties:
-    #     TopicName: createProductTopic
-    # SNSSsubscription:
-    #   Type: AWS::SNS::Subscription
-    #   Properties:
-    #     Endpoint: tiwbwit@gmail.com
-    #     Protocol: email
-    #     TopicArn:
-    #       Ref: SNSTopic
-
-  Outputs:
-    SQSQueueArn:
-      Value:
-        Fn::GetAtt: [SQSQueue, Arn]
-    SQSQueue:
-      Value:
-        Ref: SQSQueue  
+        QueueName: yura703-queue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: yura703-topic
+    SNSSsubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: lyurik1978@gmail.com 
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic  
 
 functions:
   importProductsFile:
     handler: functions/importProductsFile.importProductsFile
     events:
       - http:
-          path: /import
+          path: import
           method: get
           cors: true
           request:
@@ -83,23 +84,18 @@ functions:
         bucket: yura703-task5
         event: s3:ObjectCreated:*
         rules:
-          - prefix: uploaded/
-<<<<<<< HEAD
-          - suffix: .csv 
-        existing: true      
+          - prefix: uploaded/ 
 
   catalogBatchProcess:
     handler: functions/catalogBatchProcess.catalogBatchProcess
     events:
       - sqs:
-          batchSize: 2
+          batchSize: 4
           arn:
             Fn::GetAtt:
               - SQSQueue
               - Arn         
-=======
-        existing: true         
->>>>>>> ae3a1d0 (fix: edit serverless.yml)
+
   
   
   
