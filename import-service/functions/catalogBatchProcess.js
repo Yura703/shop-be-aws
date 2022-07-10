@@ -25,33 +25,29 @@ export const catalogBatchProcess = async (event) => {
   for (let data of bodyEvent) {
     const { price, title, description, count } = JSON.parse(data);
     
-    await client.query("BEGIN");
-
     const queryResult = await client.query(`insert into products ( title, description, price) values ('${title}', '${description}', '${price}') returning id`);
     const productId = queryResult.rows[0].id;      
 
     await client.query(`insert into stocks (product_id, count) values ('${productId}', '${count}')`);
 
-    await client.query("COMMIT");
-
     sns.publish({
-        Subject: "You are invited processed",
+        Subject: "Added new record",
         Message: JSON.stringify(bodyEvent),
         TopicArn: process.env.SNS_ARN,
       },
       () => {
-        console.log("Send email for:" + JSON.stringify(bodyEvent));
+        console.log("EMAIL:" + JSON.stringify(bodyEvent));
       }
     );
 
     return {
       statusCode: 201,
       headers: {
-        "Content-Type": "application/JSON",
-        "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true,          
+        "Access-Control-Allow-Credentials": true,    
+        "Content-Type": "application/JSON",
+        "Access-Control-Allow-Headers": "Content-Type",              
       },
       body: JSON.stringify(bodyEvent),
 
