@@ -13,7 +13,6 @@ provider:
   runtime: nodejs14.x
   stage: dev
   region: eu-west-1 
-  lambdaHashingVersion: 20201221
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -40,11 +39,15 @@ provider:
     SNS_ARN:
       Ref: SNSTopic
 
-plugins:
-  - serverless-jest-plugin  
-
 package:
+  patterns:
+    - '!node_modules/**' # no need to add this, this plugin does it for you
   individually: true
+  excludeDevDependencies: false
+
+plugins:
+  - serverless-plugin-common-excludes # this should go before serverless-plugin-include-dependencies
+  - serverless-plugin-include-dependencies 
 
 resources:
   Resources:
