@@ -1,0 +1,73 @@
+org: yura703
+app: product-service
+service: product-service
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1
+
+  environment:
+    PG_HOST: shop-instance.cq7elyimyrte.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: shop
+    PG_USERNAME: postgres
+    PG_PASSWORD: lYxD9HbWBJTvZGuLIM5u  
+
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+  - serverless-jest-plugin  
+  - serverless-dotenv-plugin
+
+package:
+  individually: true
+
+custom: 
+  webpack: 
+    webpackConfig:  'webpack.config.js'  # Имя файла конфигурации 
+    webpack includeModules:  false  # Конфигурация модулей узла для упаковки 
+    packager:  'npm'  # Packager, который будет использоваться для упаковки ваших внешних модулей 
+    excludeFiles:  src/** /*.test.js  # Предоставить glob для игнорируемых файлов  
+  jest:  
+
+#catalogItemsQueue  
+#createProductTopic
+
+functions:
+  getProductByID:
+    handler: functions/getProductByID/getProductByID.handler
+    events:
+      - http:
+          path: products/{productId}
+          method: get
+          cors: true
+
+  getAllProducts:
+    handler: functions/getAllProducts/getAllProducts.handler
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true  
+
+  # createProduct:
+  #   handler: functions/initDataInDB.handler
+  #   events:
+  #     - http:
+  #         path: products
+  #         method: post
+  #         cors: true             
+
+  # catalogBatchProcess:
+  #   usersSubmit:
+  #     handler: functions/catalogBatchProcess/catalogBatchProcess.catalogBatchProcess
+  #     events:
+  #       - http:
+  #           path: products
+  #           method: post
+  #           cors: true  
+

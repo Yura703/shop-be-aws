@@ -1,0 +1,66 @@
+[
+  {
+    "count": 5,
+    "description": "The Beatles - Let It Be [LP] 2020",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+    "price": 10,
+    "title": "Vinyl Records - The Beatles 1970", 
+    "imageId": "000000001"
+  },
+  {
+    "count": 1,
+    "description": "Jimi Hendrix - Both Sides Of The Sky [2LP] 1970",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
+    "price": 150,
+    "title": "Vinyl Records - Jimi Hendrix 1970", 
+    "imageId": "000000002"
+  },
+  {
+    "count": 10,
+    "description": "The Beatles - Abbey Road [LP] 2019",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+    "price": 23,
+    "title": "Vinyl Records - The Beatles 1969", 
+    "imageId": "000000003"
+  },
+  {
+    "count": 1,
+    "description": "Short Product Description7",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
+    "price": 15,
+    "title": "Vinyl Records - The Beatles", 
+    "imageId": "000000004"
+  },
+  {
+    "count": 1,
+    "description": "Queen - Greatest Hits [2LP] 2016",
+    "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a3",
+    "price": 23,
+    "title": "Vinyl Records - Queen 1981", 
+    "imageId": "000000005"
+  },
+  {
+    "count": 1,
+    "description": "Nirvana - Nevermind [LP] 2015",
+    "id": "7567ec4b-b10c-48c5-9345-fc73348a80a1",
+    "price": 15,
+    "title": "Vinyl Records - Nirvana 1991", 
+    "imageId": "000000006"
+  },
+  {
+    "count": 1,
+    "description": "Joe Cocker - The Life Of A Man. The Ultimate Hits 1968 - 2013 [2LP] 2016",
+    "id": "7567ec4b-b10c-48c5-9445-fc73c48a80a2",
+    "price": 23,
+    "title": "Vinyl Records - Joe Cocker", 
+    "imageId": "000000007"
+  },
+  {
+    "count": 1,
+    "description": "Andrea Bocelli - Andrea [2LP] 2015",
+    "id": "7567ec4b-b10c-45c5-9345-fc73c48a80a1",
+    "price": 15,
+    "title": "Vinyl Records - Andrea Bocelli", 
+    "imageId": "000000008"
+  }
+]
