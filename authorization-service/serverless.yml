@@ -1,0 +1,41 @@
+service: authorization-service
+frameworkVersion: '3'
+useDotenv: true
+
+custom:
+  dotenv:
+    required:
+      file: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1 
+  apiGateway: 
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+package:  
+  individually: true
+
+plugins:
+  - serverless-dotenv-plugin
+
+# resources:
+#   Resources:
+#     Outputs:
+#     BasicAuthorizerArn:
+#       Description: Export ARN of basicAuthorizer Lambda for import-service
+#       Value:
+#         !GetAtt BasicAuthorizerLambdaFunction.Arn
+#       Export:
+#         Name:
+#           BasicAuthorizerArn
+
+functions:
+  basicAuthorizer:
+    handler: basicAuthorizer.handler   
+  
