@@ -24,16 +24,16 @@ package:
 plugins:
   - serverless-dotenv-plugin
 
-resources:
-  Resources:
-    Outputs:
-    BasicAuthorizerArn:
-      Description: Export ARN of basicAuthorizer Lambda for import-service
-      Value:
-        !GetAtt BasicAuthorizerLambdaFunction.Arn
-      Export:
-        Name:
-          BasicAuthorizerArn
+# resources:
+#   Resources:
+#     Outputs:
+#     BasicAuthorizerArn:
+#       Description: Export ARN of basicAuthorizer Lambda for import-service
+#       Value:
+#         !GetAtt BasicAuthorizerLambdaFunction.Arn
+#       Export:
+#         Name:
+#           BasicAuthorizerArn
 
 functions:
   basicAuthorizer:
